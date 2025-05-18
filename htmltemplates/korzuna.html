@@ -1,0 +1,26 @@
+{% if tavari %}
+    {% for i in tavari%}
+        <h2>{{i.tovar.name}}({{i.kolvo}})</h2>
+        {% if i.tovar.kolvo > 0 %}
+            <form method="post" action="/plus/">
+                {% csrf_token %}
+                <button>+</button>
+                <input type="hidden"  value="{{i.tovar.id}}" name="id">
+            </form>
+        {% endif %}
+            <form method="post" action="/minus/">
+                {% csrf_token %}
+                <button>-</button>
+                <input type="hidden"  value="{{i.tovar.id}}" name="id">
+            </form>
+
+        <form method="post" action="/del_korzin/">
+            {% csrf_token %}
+            <button>УДАЛИТЬ</button>
+            <input type="hidden"  value="{{i.tovar.id}}" name="id">
+
+        </form>
+    {% endfor %}
+{% else %}
+<h1>Корзинус пустыс, скажитес заклинаниес чтобыс появилось предметус</h1>
+{% endif %}

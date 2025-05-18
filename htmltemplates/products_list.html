@@ -1,0 +1,23 @@
+<div class="container">
+          <h2>Наши товары</h2>
+          <div class="product-grid">
+          {% for i in products %}
+              <div class="product-card">
+
+                  <a href="tovar/{{ i.id }}"><img src="{{i.image.url}}" alt="Product 1"></a>
+                  <h3><a href="tovar/{{ i.id }}"> {{i.name}}</a></h3>
+                  <p class="price">{{i.price}}</p>
+                  {% if i.kolvo < 1 %}
+                    <h3>товар закончился</h3>
+                  {% else %}
+                    <form method="post" action="/add_korzin/">
+                        {% csrf_token %}
+                        <button>Добавить в корзину{% if i.kolvo < 5 %}( {{i.kolvo}} осталось ){% endif %}</button>
+                        <input type="hidden"  value="{{i.id}}" name="id">
+                    </form>
+                  {% endif %}
+              </div>
+          {% endfor %}
+
+          </div>
+      </div>
